@@ -1,0 +1,73 @@
+Для переноса каретки печати в терминале на новую строку нужно найти файл .bashrc
+В этом файле найти переменную PS1 и перед знаком $ поставить \n
+
+Выбор альтарнативной версии python
+https://unix.stackexchange.com/questions/410579/change-the-python3-default-version-in-ubuntu
+sudo update-alternatives --config python3
+
+
+Смотрим какие версии драйвера Nvidia есть в репозитории:
+sudo apt-get update && clear && apt-cache search nvidia-[0-9] | grep 'binary driver'
+
+Устанавливаем драйвер (nvidia-версия) и программу для его настройки (nvidia-settings):
+sudo apt-get install nvidia-340 nvidia-settings
+
+Создаем xorg.conf:
+sudo nvidia-xconfig
+
+Перезагружаем компьютер.
+После перезагрузки проверяем какой видео драйвер используется:
+lspci -k | grep -EA2 'VGA|3D'
+
+
+Установка библиотек если отказано в доступе
+sudo python3 -m pip install apiai
+
+
+Установка библиотек если отказано в доступе
+python -m pip install --user numpy
+
+
+Обновление библиотеки
+python -m pip install --upgrade --user scikit-learn
+
+
+Удаление библиотеки
+python -m pip uninstall numpy
+
+
+New python 3 build system for sublime text 3
+{
+    "cmd": ["/usr/bin/python3", "-u", "$file"],
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+    "selector": "source.python"
+}
+
+
+Установка всех зависимостей из файла requirements.txt
+pip3 install -r requirements.txt
+
+
+Обновление python
+sudo apt update
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget
+
+wget https://www.python.org/ftp/python/3.x.x/Python-3.x.x.tar.xz
+tar -xf Python-3.x.x.tar.xz
+cd Python-3.x.x && ./configure --enable-optimizations
+
+make -j 4
+sudo make altinstall
+
+
+write iso file to flash
+sudo dd if=<file_name.iso> of=/dev/sdb bs=5M
+
+
+sublime text 3 
+ColorSchemeEgitor
+
+
+chmod [ugoa] [+-] [rwx] file.txt
+example: chmod ug+rwx file.txt
+
