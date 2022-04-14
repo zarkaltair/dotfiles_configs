@@ -1,0 +1,141 @@
+# install docker
+sudo apt install docker.io
+
+# check working docker
+sudo service docker status
+
+# if docker not working
+Step 1
+Create docker group if not exist : sudo groupadd docker
+
+Step 2
+Add user to docker group : sudo usermod -aG docker ${USER}
+
+Step 3
+Change docker.sock to new permission : sudo chmod 666 /var/run/docker.sock
+
+Step 4
+Finally restart docker daemon service : sudo systemctl restart docker
+
+# check version
+docker version
+
+# read help
+docker help
+
+# show image list
+docker images
+
+# show started container
+docker ps
+
+# show all container
+docker ps -a
+
+# stop docker container
+docker stop <name container>
+
+# delete docker image
+docker rmi
+
+# delete docker container
+docker rm
+
+# run docker image
+docker run
+
+# run docker image in daemon
+docker run -d
+
+# create docker image from docker container
+docker commit image-from-container new-image
+
+# create image with entrypoint python3
+docker commit --change='ENTRYPOINT ["python3"]'  create-image-from-me
+
+# start container in interactive mode with terminal
+docker run -rm -it ubuntu:14.04
+
+# start container with name in interactive mode with terminal
+docker run --rm --name name-container
+
+# show layers image
+docker history ubuntu:15.04
+
+# check storage driver
+docker info
+
+# delete all container with end "_data"
+docker rm $(docker ps -a | grep -v "_data" | awk 'NR>1 {print $1}')
+
+# start container in interactive mode mount /home dir
+docker run -it --rm -v $(pwd):/home ubuntu:14.04
+
+# start container in interactive mode mount current work dir to /home/stepik dir
+docker run -it --rm -v $(pwd):/home/stepik parseq/stepik-host-dir
+
+# start container in interactive mode mount file to /dev/null dir
+docker run -it --rm -v /home/zark/Downloads/docker/test:/dev/null parseq/stepik-mount-files
+
+# create docker container without start with data volume
+docker create -v /srv --name store ubuntu:14.04 /bin/true
+
+# show data volumes
+docker volume ls
+
+# start container with volume store
+docker run -it --rm --volumes-from store ubuntu:14.04
+
+# show data volume without container
+docker volume ls -qf dangling=true
+
+# delete data volume without container
+docker volume rm $(docker volume ls -qf dangling=true)
+
+# run docker container with ports
+docker run -d --name port-export -p <port_on_host_machine>:<port_inside_container> image
+
+# connect to started container in interactive mode
+docker exec -it <container-name> bash
+
+# psql позволяет подключится к базе данных в интерактивном режиме
+psql -U postgres -c 'SELECT now()'
+
+# psql позволяет легко получить доступ к информации о структуре базы
+psql -U postgres -c '\dt'
+
+# выводит список таблиц БД. Полный список системных команд для psql доступен по команде:
+psql -U postgres -c '\?'
+
+# show docker networks
+docker network ls
+
+# install network tools
+apt install iproute2 net-tools inetutils-ping netcat -y
+
+# create my own network with name custom
+docker network create custom
+
+# analisys network
+docker network inspect custom | more
+
+# start container with name in my own network
+docker run -it --rm --name one --network=custom ubuntu
+
+# run docker container with daemon, name and network
+docker run -d --rm --name stepik-linking-docker --network=custom parseq/stepik-linking-docker
+
+# run docker container with name, network in interactive mode
+docker run -it --rm --name stepik-linking-docker-client --network=custom parseq/stepik-linking-docker-client
+
+# create image from dockerfile in current directory
+docker build -t image-from-dockerfile .
+
+
+
+
+
+
+
+
+
